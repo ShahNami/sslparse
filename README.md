@@ -1,5 +1,6 @@
-DEPENDENCIES:
-##############
+#SSLPARSE
+
+###DEPENDENCIES:
 
 SSLPARSE.PY has been tested with, and works with
 the following tools.
@@ -15,18 +16,15 @@ the following tools.
 	Version: 0.11.0
 
 
-FIRST:
-##############
+###FIRST:
 
 pip3 install xmltodict
 
-USAGE:
-##############
+###USAGE:
 
 python sslparse.py -f list.txt
 
-OUTPUT:
-##############
+###OUTPUT:
 
 Folder with current week number e.g. Week23/
 Folder containts the following:
@@ -35,14 +33,12 @@ Week23/
 	report.html
 	
 	
-IMPORTANT:
-##############
+###IMPORTANT:
 
 Every entry in your hosts file should end with [ENTER] a.k.a. (\r\n), including the last one.
 
 
-BUGS:
-##############
+###BUGS:
 
 File with hosts must contain more than 1 resolvable hostname.
 
