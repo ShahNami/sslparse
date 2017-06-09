@@ -14,14 +14,14 @@ pip3 install xmltodict
 ```
 
 + PYTHON
-... Version: 2.7.13
+    Version: 2.7.13
 
 + SSLSCAN
-... Version: 1.11.10-static
-... OpenSSL 1.0.2-chacha (1.0.2g-dev)
+    Version: 1.11.10-static
+    OpenSSL 1.0.2-chacha (1.0.2g-dev)
 
 + XMLTODICT
-... Version: 0.11.0
+    Version: 0.11.0
 
 
 ### Usage:
@@ -35,8 +35,8 @@ Folder with current week number e.g. Week23/
 Folder containts the following:
 
 + Week23/
-... output.xml
-... report.html
+    output.xml
+    report.html
 	
 	
 ### Important:
