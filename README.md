@@ -1,9 +1,17 @@
-# SSLPARSE
+# SSLParse
 
-### DEPENDENCIES:
+### Description
+SSLParse generates an HTML report using sslscan's XML output.
+
+### Dependencies:
 
 SSLPARSE.PY has been tested with, and works with
 the following tools.
+
+```
+apt-get install sslscan
+pip3 install xmltodict
+```
 
 + PYTHON
 	Version: 2.7.13
@@ -16,15 +24,11 @@ the following tools.
 	Version: 0.11.0
 
 
-### FIRST:
-
-pip3 install xmltodict
-
-### USAGE:
-
+### Usage:
+```
 python sslparse.py -f list.txt
-
-### OUTPUT:
+```
+### Output:
 
 Folder with current week number e.g. Week23/
 Folder containts the following:
@@ -33,12 +37,12 @@ Week23/
 	report.html
 	
 	
-### IMPORTANT:
+### Important:
 
 Every entry in your hosts file should end with [ENTER] a.k.a. (\r\n), including the last one.
 
 
-### BUGS:
+### Known Bugs:
 
 File with hosts must contain more than 1 resolvable hostname.
 
