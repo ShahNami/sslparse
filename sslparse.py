@@ -33,7 +33,7 @@ def parse_xml(directory, xmloutput):
             certificate = "Signature algorithm: / <br/>";
             try:
                 certificate = "Signature algorithm: <span class='text-primary'>" + ssltest['certificate']['signature-algorithm'] + "</span><br/>" + ssltest['certificate']['pk']['@type'] + " Key Strength: <span class='text-primary'>" + ssltest['certificate']['pk']['@bits'] + "</span><br/>" + " Subject: <span class='text-primary'>" + ssltest['certificate']['subject'] + "</span><br/>"  + " Alternative names: <span class='text-primary'>" + ssltest['certificate']['altnames']+ "</span><br/>"  + " Issuer: <span class='text-primary'>" + ssltest['certificate']['issuer'] + "</span><br/>"  + " Self-Signed: " + toBoolean(ssltest['certificate']['self-signed'], "<span class='text-danger'>True</span>", "<span class='text-success'>False</span>")+ "<br/>"  + " Not Valid Before: <span class='text-primary'>" + ssltest['certificate']['not-valid-before'] + "</span><br/>"  + " Not Valid After: <span class='text-primary'>" + ssltest['certificate']['not-valid-after'] + "</span><br/>"  + " Expired: " + toBoolean(ssltest['certificate']['expired'], "<span class='text-danger'>True</span>", "<span class='text-success'>False</span>") + "<br/>"
-            except Error:
+            except:
                 print("Unable to parse Certificate information for: " + hostport)
 
             table += "<tbody><tr><th scope='row'>"+hostport+"</th><td>"+negotiation+"</td><td>"+compression+"</td><td>"+heartbleeds+"</td><td>"+ciphers+"</td><td>"+certificate+"</td></tr></tbody>"
