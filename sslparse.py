@@ -12,6 +12,10 @@ def toBoolean(nonBoolValue, trueString, falseString):
         return (nonBoolValue == "preferred") and trueString or falseString
     else:
         return (nonBoolValue == "TLSv1.0") and trueString or falseString
+        
+def checkRC4(cipher):
+    
+    return (cipher=="RC4-SHA") and "<span class='text-danger'>" + cipher + "</span>" or "<span class='text-muted'>" + cipher + "</span>"
     
 def parse_xml(directory, xmloutput):
     with open(directory+xmloutput) as fd:
@@ -28,7 +32,7 @@ def parse_xml(directory, xmloutput):
                 heartbleeds += heartbleed['@sslversion'] + " is " + toBoolean(heartbleed["@vulnerable"], "<span class='text-danger'>vulnerable</span>", "<span class='text-success'>not vulnerable</span>") + "</br>"
             ciphers = ""
             for cipher in ssltest['cipher']:
-                ciphers += toBoolean(cipher['@status'], "<span class='text-success'>"+cipher['@status']+"</span>", "<span class='text-primary'>"+cipher['@status']+"</span>") + "\t\t" + toBoolean(cipher['@sslversion'], "<span class='text-danger'>"+cipher['@sslversion']+"</span>", "<span class=''>"+cipher['@sslversion']+"</span>") + "\t\t<span class='text-info'>" + cipher['@bits'] + "</span>\t\t<span class='text-muted'>" + cipher['@cipher'] + "</span></br>"
+                ciphers += toBoolean(cipher['@status'], "<span class='text-success'>"+cipher['@status']+"</span>", "<span class='text-primary'>"+cipher['@status']+"</span>") + "\t\t" + toBoolean(cipher['@sslversion'], "<span class='text-danger'>"+cipher['@sslversion']+"</span>", "<span class=''>"+cipher['@sslversion']+"</span>") + "\t\t<span class='text-info'>" + cipher['@bits'] + "</span>\t\t" + checkRC4(cipher['@cipher']) + "</br>"
                 
             certificate = "Signature algorithm: / <br/>";
             try:
