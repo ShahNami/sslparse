@@ -30,7 +30,7 @@ pip3 install xmltodict
 
 ### Usage:
 ```
-python sslparse.py -f list.txt
+python3 sslparse.py -f list.txt
 ```
 ### Output:
 
@@ -43,14 +43,10 @@ Folder containts the following:
     output.xml
 	
     report.html
-	
-	
-### Important:
-
-Every entry in your hosts file should end with [ENTER] a.k.a. (\r\n), including the last one.
 
 
 ### Known Bugs:
++ Every entry in your hosts file should end with [ENTER] a.k.a. (\r\n), including the last one.
 
-File with hosts must contain more than 1 resolvable hostname.
++ File with hosts must contain more than 1 resolvable hostname.
 
