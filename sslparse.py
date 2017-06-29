@@ -3,19 +3,25 @@ import optparse
 import datetime
 import os
     
+weak_ciphers = ["RC4-SHA", "RC4-MD5"]
+weak_signatures = ["sha1WithRSAEncryption"]
+weak_tls = ["TLSv1.0", "SSLv3", "SSLv2"]
+
 def toBoolean(nonBoolValue, trueString, falseString):
     if(nonBoolValue == "1" or nonBoolValue == "0"):
         return (nonBoolValue == "1") and trueString or falseString
-    elif(nonBoolValue == "True" or nonBoolValue == "False"):
-        return (nonBoolValue == "True") and trueString or falseString
+    elif(nonBoolValue == "true" or nonBoolValue == "false"):
+        return (nonBoolValue == "true") and trueString or falseString
     elif(nonBoolValue == "preferred" or nonBoolValue == "accepted"):
         return (nonBoolValue == "preferred") and trueString or falseString
     else:
-        return (nonBoolValue == "TLSv1.0") and trueString or falseString
+        return (nonBoolValue in weak_tls) and trueString or falseString
         
 def checkRC4(cipher):
+    return (cipher in weak_ciphers) and "<span class='text-danger'>" + cipher + "</span>" or "<span class='text-muted'>" + cipher + "</span>"
     
-    return (cipher=="RC4-SHA") and "<span class='text-danger'>" + cipher + "</span>" or "<span class='text-muted'>" + cipher + "</span>"
+def checkSignature(signature):
+    return (signature in weak_signatures) and "<span class='text-danger'>" + signature + "</span>" or "<span class='text-primary'>" + signature + "</span>"
     
 def parse_xml(directory, xmloutput):
     with open(directory+xmloutput) as fd:
@@ -40,7 +46,7 @@ def parse_xml(directory, xmloutput):
                 
             certificate = "Signature algorithm: / <br/>";
             try:
-                certificate = "Signature algorithm: <span class='text-primary'>" + ssltest['certificate']['signature-algorithm'] + "</span><br/>" + ssltest['certificate']['pk']['@type'] + " Key Strength: <span class='text-primary'>" + ssltest['certificate']['pk']['@bits'] + "</span><br/>" + " Subject: <span class='text-primary'>" + ssltest['certificate']['subject'] + "</span><br/>"  + " Alternative names: <span class='text-primary'>" + ssltest['certificate']['altnames']+ "</span><br/>"  + " Issuer: <span class='text-primary'>" + ssltest['certificate']['issuer'] + "</span><br/>"  + " Self-Signed: " + toBoolean(ssltest['certificate']['self-signed'], "<span class='text-danger'>True</span>", "<span class='text-success'>False</span>")+ "<br/>"  + " Not Valid Before: <span class='text-primary'>" + ssltest['certificate']['not-valid-before'] + "</span><br/>"  + " Not Valid After: <span class='text-primary'>" + ssltest['certificate']['not-valid-after'] + "</span><br/>"  + " Expired: " + toBoolean(ssltest['certificate']['expired'], "<span class='text-danger'>True</span>", "<span class='text-success'>False</span>") + "<br/>"
+                certificate = "Signature algorithm: " + checkSignature(ssltest['certificate']['signature-algorithm']) + "<br/>" + ssltest['certificate']['pk']['@type'] + " Key Strength: <span class='text-primary'>" + ssltest['certificate']['pk']['@bits'] + "</span><br/>" + " Subject: <span class='text-primary'>" + ssltest['certificate']['subject'] + "</span><br/>" + " Issuer: <span class='text-primary'>" + ssltest['certificate']['issuer'] + "</span><br/>"  + " Self-Signed: " + toBoolean(ssltest['certificate']['self-signed'], "<span class='text-danger'>True</span>", "<span class='text-success'>False</span>")+ "<br/>"  + " Not Valid Before: <span class='text-primary'>" + ssltest['certificate']['not-valid-before'] + "</span><br/>"  + " Not Valid After: <span class='text-primary'>" + ssltest['certificate']['not-valid-after'] + "</span><br/>"  + " Expired: " + toBoolean(ssltest['certificate']['expired'], "<span class='text-danger'>True</span>", "<span class='text-success'>False</span>") + "<br/>"
             except:
                 print("Unable to parse Certificate information for: " + hostport)
 
