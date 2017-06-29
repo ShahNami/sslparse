@@ -31,8 +31,12 @@ def parse_xml(directory, xmloutput):
             for heartbleed in ssltest['heartbleed']:
                 heartbleeds += heartbleed['@sslversion'] + " is " + toBoolean(heartbleed["@vulnerable"], "<span class='text-danger'>vulnerable</span>", "<span class='text-success'>not vulnerable</span>") + "</br>"
             ciphers = ""
-            for cipher in ssltest['cipher']:
-                ciphers += toBoolean(cipher['@status'], "<span class='text-success'>"+cipher['@status']+"</span>", "<span class='text-primary'>"+cipher['@status']+"</span>") + "\t\t" + toBoolean(cipher['@sslversion'], "<span class='text-danger'>"+cipher['@sslversion']+"</span>", "<span class=''>"+cipher['@sslversion']+"</span>") + "\t\t<span class='text-info'>" + cipher['@bits'] + "</span>\t\t" + checkRC4(cipher['@cipher']) + "</br>"
+            
+            try:
+                for cipher in ssltest['cipher']:
+                    ciphers += toBoolean(cipher['@status'], "<span class='text-success'>"+cipher['@status']+"</span>", "<span class='text-primary'>"+cipher['@status']+"</span>") + "\t\t" + toBoolean(cipher['@sslversion'], "<span class='text-danger'>"+cipher['@sslversion']+"</span>", "<span class=''>"+cipher['@sslversion']+"</span>") + "\t\t<span class='text-info'>" + cipher['@bits'] + "</span>\t\t" + checkRC4(cipher['@cipher']) + "</br>"
+            except:
+                print("Unable to parse Cipher information for: " + hostport)
                 
             certificate = "Signature algorithm: / <br/>";
             try:
